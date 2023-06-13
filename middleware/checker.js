@@ -3,7 +3,7 @@ function check(req,res,next){
     if(req.headers.authorization == 12345){
         next()
     }else{
-        res.json("Auth Failed")
+        res.json("Auth Failed hoice")
     }
 }
 module.exports = check
