@@ -11,6 +11,9 @@ let userSchema = new Schema({
     password:{
         type: String,
     },
+    code:{
+        type: Number,
+    }
 })
 
 module.exports = mongoose.model("User", userSchema)

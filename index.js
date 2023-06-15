@@ -21,10 +21,11 @@ mongoose.connect('mongodb+srv://backendsiam:siam1256@shop-pay.4qy3mwr.mongodb.ne
             name: name,
             email: email,
             password: password,
+            code: 123*Math.random()
         })
         user.save()
         res.send("Registration Successful")
-        emailV(user.email)
+        emailV(user.email,user.code)
   })
   app.get("/login", async function(req,res){
         let {email,password} = req.body
