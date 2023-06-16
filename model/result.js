@@ -6,11 +6,18 @@ let resultSchema = new Schema({
     name:{
         type: String,
     },
+    email:{
+        type: String,
+    },
     subject:{
         type: String,
     },
     grade:{
         type: String,
+    },
+    verified: {
+        type: Boolean,
+        default: false,
     }
 })
 

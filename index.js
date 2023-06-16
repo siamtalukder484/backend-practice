@@ -18,9 +18,10 @@ dbConnection()
 
 //result post operation
 app.post("/result", function(req, res){
-    let {name, subject, grade} = req.body
+    let {name, email, subject, grade} = req.body
     let result = new Result({
         name,
+        email,
         subject,
         grade,
     });
