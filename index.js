@@ -43,23 +43,23 @@ mongoose.connect('mongodb+srv://backendsiam:siam1256@shop-pay.4qy3mwr.mongodb.ne
         console.log(user);
   })
 
-// app.get("/" ,check,function(req,res){
-//     let users = [
-//         {
-//             name: "siam"
-//         },
-//         {
-//             name: "shawon"
-//         },
-//         {
-//             name: "shohan"
-//         },
-//         {
-//             name: "mehedi"
-//         }
-//     ]
-//     res.json(users)
-// });
+app.get("/" ,check,function(req,res){
+    let users = [
+        {
+            name: "siam"
+        },
+        {
+            name: "shawon"
+        },
+        {
+            name: "shohan"
+        },
+        {
+            name: "mehedi"
+        }
+    ]
+    res.json(users)
+});
 
 
 // app.post("/reg",(req,res)=>{
