@@ -1,21 +1,39 @@
 const express = require("express");
 const check = require("./middleware/checker");
 const app = express()
-const mongoose = require('mongoose');
+
 const User = require("./model/user.js");
+const Result = require("./model/result.js")
 const nodemailer = require("nodemailer");
 const emailV = require("./emailVerification");
 var jwt = require('jsonwebtoken');
+const dbConnection = require("./configuration/db");
 
 
 app.use(express.json())
 
 
 
-mongoose.connect('mongodb+srv://backendsiam:siam1256@shop-pay.4qy3mwr.mongodb.net/backend')
-  .then(() => console.log('Connected!'));
+dbConnection()
 
+//result post operation
+app.post("/result", function(req, res){
+    let {name, subject, grade} = req.body
+    let result = new Result({
+        name,
+        subject,
+        grade,
+    });
+    result.save()
+    res.send("Result saved successfully..")
+});
+//result get operation
+app.get("/getresult", async function(req,res){
+    let getresult = await Result.find({})
+    res.send(getresult)
+})
 
+//otp send operation
   app.post("/reg", async function(req,res){
     function generateRandomNumber() {
       const min = 10000000;
