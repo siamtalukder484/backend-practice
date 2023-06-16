@@ -43,7 +43,7 @@ mongoose.connect('mongodb+srv://backendsiam:siam1256@shop-pay.4qy3mwr.mongodb.ne
         console.log(user);
   })
 
-app.get("/" ,check,function(req,res){
+app.get("/",function(req,res){
     let users = [
         {
             name: "siam"
