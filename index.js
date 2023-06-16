@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require("./model/user.js");
 const nodemailer = require("nodemailer");
 const emailV = require("./emailVerification");
+var jwt = require('jsonwebtoken');
 
 
 app.use(express.json())
@@ -15,15 +16,24 @@ mongoose.connect('mongodb+srv://backendsiam:siam1256@shop-pay.4qy3mwr.mongodb.ne
   .then(() => console.log('Connected!'));
 
 
-  app.post("/reg",  function(req,res){
+  app.post("/reg", async function(req,res){
+    function generateRandomNumber() {
+      const min = 10000000;
+      const max = 99999999; 
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      return randomNumber;
+    }
+    const random8DigitNumber = generateRandomNumber();
         let {name,email,password} = req.body
         let user =  new User({
             name: name,
             email: email,
             password: password,
-            code: 123*Math.random()
+            code: random8DigitNumber,
         })
         user.save()
+        var token = await jwt.sign({ id: user.email }, "kfjie6541ewrf54fhjhjhgg");
+        console.log(token);
         res.send("Registration Successful")
         emailV(user.email,user.code)
   })
