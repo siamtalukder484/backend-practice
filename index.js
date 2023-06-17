@@ -17,7 +17,7 @@ app.use(express.json())
 dbConnection()
 
 //result post operation
-app.post("/result", function(req, res){
+app.post("/result", async function(req, res){
     let {name, email, subject, grade} = req.body
     let result = new Result({
         name,
@@ -26,8 +26,23 @@ app.post("/result", function(req, res){
         grade,
     });
     result.save()
+    let token = await jwt.sign({ email: result.email }, "kire");
+    console.log(token);
     res.send("Result saved successfully..")
 });
+app.post("/resultverify", async function(req,res){
+    let decode = jwt.verify(req.headers.authorization,"kire")
+    if(Result.distinct("verified") == "true"){
+        let resultverifyupdate = await Result.findOneAndUpdate({email: decode.email},{verified: true},{new: true})
+        res.send("Verified Successfully..")
+    }else{
+        res.send("Already Verified")
+    }
+    // let xyz = await (Result.distinct("verified"));
+    // res.send(xyz)
+
+    // res.send(resultverifyupdate)
+})
 //result get operation
 app.get("/getresult", async function(req,res){
     let getresult = await Result.find({})
