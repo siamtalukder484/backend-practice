@@ -1,5 +1,9 @@
+const dotenv = require('dotenv').config()
 const express = require("express");
 const check = require("./middleware/checker");
+const routes = require("./routes")
+
+
 const app = express()
 
 const User = require("./model/user.js");
