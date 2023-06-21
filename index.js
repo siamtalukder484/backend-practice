@@ -25,8 +25,11 @@ dbConnection()
 app.post("/passtest", function(req,res){
 
     let {username,email,pass} = req.body
-    bcrypt.hash(pass, 5, function(err, hash) {
-        console.log(hash);
+    // bcrypt.hash(pass, 5, function(err, hash) {
+    //     console.log(hash);
+    // });
+    bcrypt.compare(pass, "$2b$05$XB.mSnAX7KNd1Ouq7FhDjuEg/xO/LjAwcnkss3n5Qv5n6dBWp/Kmq", function(err, result) {
+        console.log(result);
     });
     res.json({username,email,pass})
 })
@@ -44,7 +47,7 @@ app.post("/result", async function(req, res){
     result.save()
     let token = await jwt.sign({ email: result.email }, "kire");
     console.log(token);
-    res.send("Result saved successfully..")
+    res.send("Result saved successful..")
 });
 app.post("/resultverify", async function(req,res){
     let decode = jwt.verify(req.headers.authorization,"kire")
