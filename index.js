@@ -12,6 +12,7 @@ const nodemailer = require("nodemailer");
 const emailV = require("./emailVerification");
 var jwt = require('jsonwebtoken');
 const dbConnection = require("./configuration/db");
+const bcrypt = require("bcrypt")
 
 
 app.use(express.json())
@@ -19,6 +20,17 @@ app.use(express.json())
 
 
 dbConnection()
+
+
+app.post("/passtest", function(req,res){
+
+    let {username,email,pass} = req.body
+    bcrypt.hash(pass, 5, function(err, hash) {
+        console.log(hash);
+    });
+    res.json({username,email,pass})
+})
+
 
 //result post operation
 app.post("/result", async function(req, res){
